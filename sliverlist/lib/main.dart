@@ -50,7 +50,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
+  final _items = List.generate(50, (index) => ListTile(title: Text('No $index')));
 
   @override
   Widget build(BuildContext context) {
@@ -61,32 +61,32 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            pinned: true, // 축소 시 상단에 AppBar가 고정되는지 여부 설정
-            expandedHeight: 120.0, // 헤더 최대 높이
-            flexibleSpace: FlexibleSpaceBar( // 늘어나는 영역의 UI
+            pinned: true,
+            expandedHeight: 150.0,
+            flexibleSpace: FlexibleSpaceBar(
               title: Text('Sliver'),
               background: Image.asset(
                 'images/test.jpg',
                 fit: BoxFit.cover,
                 ),
-              
             ),
+            actions: <Widget>[
+              IconButton(
+                icon: Image.asset('images/test.jpg'),
+                onPressed: (){},
+              )
+            ],
           ),
-          SliverFillRemaining(
-            child: Center(
-              child: Text('center'),
-            ),
+          SliverList(
+            delegate: SliverChildListDelegate(_items),
           )
         ],
-      ) // This trailing comma makes auto-formatting nicer for build methods.
+        
+      )
+       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
